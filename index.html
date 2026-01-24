@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Icetech Ventures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .gradient-text { background: linear-gradient(90deg, #38bdf8, #42aac4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } 
+    </style>
+</head>
+<body class="font-sans leading-relaxed">
+
+<nav class="sticky top-0 z-50 glass p-4 flex justify-between items-center w-full">
+    <div class="max-w-6xl mx-auto flex justify-between items-center w-full">
+        <h1 class="text-2xl font-bold tracking-tighter uppercase">Icetech<span class="text-sky-400">Ventures</span></h1>
+        
+        <div class="hidden md:flex items-center">
+            <a href="#home" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Home</a>
+            <a href="#services" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Services</a>
+            <a href="#projects" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Projects</a>
+            <a href="#about" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">About</a>
+            <a href="#contact" class="bg-sky-500 px-5 py-3 font-medium hover:bg-sky-100 hover:text-sky-700 transition">Contact</a> 
+        </div>
+    </div>
+</nav>
+
+<section id="home" class="relative min-h-[80vh] flex items-center overflow-hidden pt-20">
+    
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-cover bg-center animate-fade" 
+             style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80');">
+        </div>
+        <div class="absolute inset-0 bg-cover bg-center animate-fade [animation-delay:4s]" 
+             style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80');">
+        </div>
+    </div>
+
+    <header class="relative z-10 py-24 px-6 text-center max-w-4xl mx-auto">
+        <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+            I build <span class="gradient-text">fast, secure websites</span> that help businesses grow.
+        </h2>
+        <p class="text-gray-300 text-lg mb-10">
+            Full-stack web developer focused on clean design, performance, and security.
+        </p>
+        <div class="flex justify-center">
+            <a href="#contact" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-gray-200 transition">
+                Hire Me
+            </a> 
+        </div>
+    </header>
+</section>
+
+<style>
+    @keyframes fade {
+        0%, 70% { opacity: 0; }
+        50% { opacity: 1; }
+    }
+    .animate-fade {
+        animation: fade 25s infinite;
+    }
+</style>
+
+    <section id="services" class="py-20 bg-slate-100/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-3xl font-bold mb-12 text-center">Our Services</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass p-8 rounded-2xl border-t-4 border-sky-400">
+                    <h4 class="text-xl font-bold mb-4">Website/Apps Development</h4>
+                    <p class="text-gray-400">Mobile Apps, Business websites, landing pages, and dashboards tailored to your needs.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl border-t-4 border-sky-400">
+                    <h4 class="text-xl font-bold mb-4">Security & Performance</h4>
+                    <p class="text-gray-400">Clean code, basic security best practices, and speed optimization for a seamless experience.</p>
+                </div>
+                <div class="glass p-8 rounded-2xl border-t-4 border-sky-400">
+                    <h4 class="text-xl font-bold mb-4">Graphic Design</h4>
+                    <p class="text-gray-400">Creative designs and Branding, including logos, flyers, and brand identity.</p>                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="projects" class="py-20 max-w-7xl mx-auto px-6 overflow-hidden">
+    <h3 class="text-3xl font-bold mb-12 text-center">Our Projects</h3>
+
+    <div class="mb-16">
+        <h4 class="text-2xl font-semibold mb-6 border-l-4 border-blue-500 pl-4">Web Development</h4>
+        <div class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory">
+            
+            <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
+                <div class="overflow-hidden rounded-2xl mb-4">
+                    <img src="https://repository-images.githubusercontent.com/456963513/82528385-a73f-488f-9003-513321283a6b" alt="E-commerce" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h4 class="text-xl font-bold">SwiftCart E-commerce</h4>
+                <p class="text-gray-400">High-performance storefront with seamless payments.</p>
+            </div>
+
+            <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
+                <div class="overflow-hidden rounded-2xl mb-4">
+                    <img src="https://agentestudio.com/uploads/ckeditor/pictures/1687/blog-design-19.png" alt="Blogging" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h4 class="text-xl font-bold">Intellectwize</h4>
+                <p class="text-gray-400">A blog website with a minimalist CMS optimized for SEO and readability.</p>
+            </div>
+
+            <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
+                <div class="overflow-hidden rounded-2xl mb-4">
+                    <img src="https://cdn.prod.website-files.com/5e4d33175370e9725f6417f6/5f70f01b7410a3e0b4044d39_Investigations.png" alt="Analytics" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h4 class="text-xl font-bold">Nexus Analytics</h4>
+                <p class="text-gray-400">Full-stack data visualization platform.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <h4 class="text-2xl font-semibold mb-6 border-l-4 border-purple-500 pl-4">Graphic Design</h4>
+        <div class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory">
+            
+            <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
+                <div class="overflow-hidden rounded-2xl mb-4">
+                    <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b1e32e215702323.Y3JvcCwxNTM0LDEyMDAsMzQsMA.jpg" alt="Branding" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h4 class="text-xl font-bold">Brand Identity</h4>
+                <p class="text-gray-400">Visual identity and logo system for a tech startup.</p>
+            </div>
+
+            <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
+                <div class="overflow-hidden rounded-2xl mb-4">
+                    <img src="C:\Users\HP STREAM\Desktop\img\Street Life.jpg" alt="Packaging" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h4 class="text-xl font-bold">Music Art Cover</h4>
+                <p class="text-gray-400">Design suitable for a music artist's album cover and all streaming platforms.</p>
+            </div>
+
+            <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
+                <div class="overflow-hidden rounded-2xl mb-4">
+                    <img src="C:\Users\HP STREAM\Desktop\img\Icetech121.jpg" alt="Social Media" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h4 class="text-xl font-bold">Digital Ad Campaign</h4>
+                <p class="text-gray-400">High-conversion social media assets for retailers.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+
+<section id="about" class="py-20 bg-slate-100/10">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h3 class="text-3xl font-bold mb-24">About</h3>
+        
+        <div class="glass p-10 rounded-3xl relative">
+            
+            <div class="flex justify-center -mt-20 mb-6">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-sky-400/20 rounded-full blur"></div>
+                    
+                    <img src="C:\Users\HP STREAM\Desktop\img\122.jpg" 
+                         alt="Ibo Mhen Richard" 
+                         class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white object-cover shadow-2xl bg-slate-800">
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-bold mb-4 gradient-text">ICETECH VENTURES</h4> 
+            <p class="text-gray-300 text-lg leading-relaxed text-left md:text-center">
+                My name is <b>Ibo Mhen Richard,</b> I am the founder of <b>Icetech Ventures</b>, a premier digital solutions agency dedicated to empowering businesses through cutting-edge technology and creative excellence. We specialize in building secure, high-performance digital infrastructure tailored to the evolving needs of the modern market.
+                <br><br>
+                We combine technical precision with a client first approach, ensuring that every project from complex software architecture to visual branding is delivered with speed and affordability. Our team is committed to bridging the gap between ambitious business goals and functional technical reality.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="py-20 px-6">
+    <div class="glass max-w-4xl mx-auto p-10 rounded-3xl text-center">
+        <h3 class="text-4xl font-bold mb-4">Ready to build?</h3>
+        <p class="text-gray-400 mb-8">Let's discuss how Icetech Ventures can help your project succeed.</p>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center mb-10">
+            <div class="space-y-6 text-left">
+                <div>
+                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">Email Us</p>
+                    <a href="mailto:mhenrichard@gmail.com" class="text-xl text-sky-400 hover:text-white transition">
+                        mhenrichard@gmail.com
+                    </a>
+                </div>
+                
+                <div>
+                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-2">WhatsApp Us</p>
+                    <a href="https://wa.me/message/76KNE73P5OETM1" target="_blank" class="inline-flex items-center bg-green-700 hover:bg-green-600 text-white px-6 py-3 rounded-full font-bold transition">
+                        <span>WhatsApp Now</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center border-l border-white/10 md:pl-12">
+                <p class="text-sm text-gray-500 uppercase tracking-widest mb-4">Scan to Connect</p>
+                <div class="bg-white p-2 rounded-xl inline-block shadow-xl">
+                    <img src="C:\Users\HP STREAM\Desktop\img\wa.jpg" alt="WhatsApp QR Code" class="w-32 h-32">
+                </div>
+            </div>
+        </div>
+
+        <hr class="border-white/10 mb-8">
+
+        <div class="flex justify-center space-x-8">
+            <a href="https://www.facebook.com/mhenrichard" class="text-gray-200 hover:text-sky-400 transition text-2xl">
+                <span class="sr-only">Facebook</span>
+                <i class="fab fa-facebook-f">FACEBOOK</i>
+                <!--
+            <a href="#" class="text-gray-400 hover:text-sky-400 transition text-2xl">
+                <span class="sr-only">LinkedIn</span>
+                <i class="fab fa-linkedin">IN</i>
+            </a>
+        -->
+            <a href="https://x.com/mhenrichard" class="text-gray-200 hover:text-sky-400 transition text-2xl">
+                <span class="sr-only">Twitter</span>
+                <i class="fab fa-twitter">X (Twitter)</i>
+            </a>
+            <a href="#" class="text-gray-200 hover:text-sky-400 transition text-2xl">
+                <span class="sr-only">Instagram</span>
+                <i class="fab fa-instagram">INSTAGRAM</i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+    <footer class="py-10 text-center text-gray-400 border-t border-white/10">
+        <p>&copy; 2026 Icetech Ventures. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
