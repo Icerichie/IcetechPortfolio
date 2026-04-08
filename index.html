@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,37 +8,102 @@
         html { scroll-behavior: smooth; }
         body { background-color: #0f172a; color: white; }
         .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .gradient-text { background: linear-gradient(90deg, #38bdf8, #42aac4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; } 
+        .gradient-text { background: linear-gradient(90deg, #38bdf8, #42aac4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-        
+
         @keyframes fade {
             0%, 70% { opacity: 0; }
             50% { opacity: 1; }
         }
         .animate-fade { animation: fade 25s infinite; }
+
+        /* Pricing card glow for featured plan */
+        .plan-featured {
+            border: 2px solid #3b82f6;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.25);
+        }
+
+        /* Checkmark list items */
+        .feature-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.9rem; color: #cbd5e1; }
+        .feature-item.included svg { color: #22c55e; }
+        .feature-item.excluded { color: #64748b; }
+        .feature-item.excluded svg { color: #475569; }
+
+        /* Calculator Toggle Styles */
+        #calculator-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease, margin-top 0.4s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        #calculator-content.expanded {
+            opacity: 1;
+            margin-top: 2rem;
+        }
+
+        .calc-container {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .option-card.selected {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .checkbox-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .total-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 1px solid #38bdf8;
+        }
+
+        /* Custom Scrollbar for the feature list */
+        #selectedFeaturesList::-webkit-scrollbar {
+            width: 4px;
+        }
+        #selectedFeaturesList::-webkit-scrollbar-thumb {
+            background: #38bdf8;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
-<body class="font-sans leading-relaxed">
+<body class="font-sans leading-relaxed scroll-smooth">
 
+    <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0f172a]">
         <div class="w-16 h-16 border-4 border-sky-400/20 border-t-sky-400 rounded-full animate-spin mb-4"></div>
         <h1 class="text-xl font-bold tracking-tighter uppercase">Icetech<span class="text-sky-400">Ventures</span></h1>
     </div>
 
+    <!-- NAV -->
     <nav class="sticky top-0 z-50 glass p-4 w-full">
         <div class="max-w-6xl mx-auto flex justify-between items-center w-full">
             <h1 class="text-2xl font-bold tracking-tighter uppercase">
                 Icetech<span class="text-sky-400">Ventures</span>
             </h1>
-            
+
             <div class="hidden md:flex items-center">
-                <a href="#home" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Home</a>
+                <a href="#home"     class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Home</a>
                 <a href="#services" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Services</a>
                 <a href="#projects" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Projects</a>
-                <a href="#about" class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">About</a>
-                <a href="#contact" class="bg-sky-500 px-5 py-3 font-medium hover:bg-sky-100 hover:text-sky-700 transition ml-2">Contact</a> 
+                <a href="#pricing"  class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">Pricing</a>
+                <a href="#about"    class="bg-white/10 px-4 py-3 hover:bg-white hover:text-black transition">About</a>
+                <a href="#contact"  class="bg-sky-500 px-5 py-3 font-medium hover:bg-sky-100 hover:text-sky-700 transition ml-2">Contact</a>
             </div>
 
             <button id="menu-btn" class="md:hidden text-white focus:outline-none">
@@ -49,41 +113,44 @@
             </button>
         </div>
 
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-[#0f172a] z-[60] flex flex-col items-center justify-center space-y-8 text-2xl font-bold transform -translate-x-full transition-transform duration-300 md:hidden">
             <button id="close-btn" class="absolute top-6 right-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <a href="#home" class="mobile-link hover:text-sky-400 transition">Home</a>
+            <a href="#home"     class="mobile-link hover:text-sky-400 transition">Home</a>
             <a href="#services" class="mobile-link hover:text-sky-400 transition">Services</a>
             <a href="#projects" class="mobile-link hover:text-sky-400 transition">Projects</a>
-            <a href="#about" class="mobile-link hover:text-sky-400 transition">About</a>
-            <a href="#contact" class="mobile-link bg-sky-500 px-8 py-3 rounded-full">Contact</a>
+            <a href="#pricing"  class="mobile-link hover:text-sky-400 transition">Pricing</a>
+            <a href="#about"    class="mobile-link hover:text-sky-400 transition">About</a>
+            <a href="#contact"  class="mobile-link bg-sky-500 px-8 py-3 rounded-full">Contact</a>
         </div>
     </nav>
 
+    <!-- HOME -->
     <section id="home" class="relative min-h-[80vh] flex items-center overflow-hidden pt-20">
         <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-cover bg-center animate-fade" 
+            <div class="absolute inset-0 bg-cover bg-center animate-fade"
                  style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80');">
             </div>
-            <div class="absolute inset-0 bg-cover bg-center animate-fade [animation-delay:4s]" 
+            <div class="absolute inset-0 bg-cover bg-center animate-fade [animation-delay:4s]"
                  style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80');">
             </div>
         </div>
-
         <header class="relative z-10 py-24 px-6 text-center max-w-4xl mx-auto">
             <h2 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-                I build <span class="gradient-text">fast, secure websites</span> that help businesses grow.
+                We build <span class="gradient-text">fast, secure websites</span> that help businesses grow.
             </h2>
-            <p class="text-gray-300 text-lg mb-10">Full-stack developer focused on clean design, performance, and security.</p>
+            <p class="text-gray-200 text-lg mb-10">Full-stack developer focused on clean design, performance, and security.</p>
             <div class="flex justify-center">
-                <a href="https://wa.me/message/76KNE73P5OETM1" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-gray-200 transition">Hire Me</a> 
+                <a href="https://wa.me/message/76KNE73P5OETM1" class="bg-white text-black px-10 py-4 rounded-lg font-bold hover:bg-gray-200 transition">Hire Me</a>
             </div>
         </header>
     </section>
 
+    <!-- SERVICES -->
     <section id="services" class="py-20 bg-slate-100/10">
         <div class="max-w-6xl mx-auto px-6">
             <h3 class="text-3xl font-bold mb-12 text-center">Our Services</h3>
@@ -104,35 +171,43 @@
         </div>
     </section>
 
+    <!-- PROJECTS -->
     <section id="projects" class="py-20 max-w-7xl mx-auto px-6 overflow-hidden">
         <h3 class="text-3xl font-bold mb-12 text-center">Our Projects</h3>
 
         <div class="mb-16">
             <h4 class="text-2xl font-semibold mb-6 border-l-4 border-blue-500 pl-4">Web Development</h4>
             <div class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory">
-                
                 <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
-                    <div class="overflow-hidden rounded-2xl mb-4">
-                        <img src="https://repository-images.githubusercontent.com/456963513/82528385-a73f-488f-9003-513321283a6b" alt="E-commerce" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
+                    <div class="overflow-hidden rounded-2xl mb-4 flex justify-center">
+                        <img src="img/Luvt.png" alt="Luvtester" class="w-fit h-64 object-cover group-hover:scale-105 transition duration-500">
                     </div>
-                    <h4 class="text-xl font-bold">SwiftCart E-commerce</h4>
-                    <p class="text-gray-400">High-performance storefront with seamless payments.</p>
-                </div>
+                    <h4 class="text-xl font-bold">Luvtester for fun</h4>
+                    <p class="text-gray-400">Basically it a web app to test love compatiblity just for fun.</p>
+                <a href="http://luvtester.fun" class="shrink-0 bg-blue-500 hover:bg-blue-400 text-white px-7 py-3 rounded-xl font-semibold transition flex justify-center">
+                   Take a Look
+                </a>
 
+                </div>
                 <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
                     <div class="overflow-hidden rounded-2xl mb-4">
                         <img src="https://agentestudio.com/uploads/ckeditor/pictures/1687/blog-design-19.png" alt="Blogging" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
                     </div>
                     <h4 class="text-xl font-bold">Intellectwize</h4>
                     <p class="text-gray-400">A blog website with a minimalist CMS optimized for SEO.</p>
+		<a href="http://intellectwize.com" class="shrink-0 bg-blue-500 hover:bg-blue-400 text-white px-7 py-3 rounded-xl font-semibold transition flex justify-center">
+                   Take a Look
+                </a>
                 </div>
-
                 <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
                     <div class="overflow-hidden rounded-2xl mb-4">
                         <img src="https://cdn.prod.website-files.com/5e4d33175370e9725f6417f6/5f70f01b7410a3e0b4044d39_Investigations.png" alt="Analytics" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
                     </div>
                     <h4 class="text-xl font-bold">Nexus Analytics</h4>
-                    <p class="text-gray-400">Full-stack data visualization platform.</p>
+                    <p class="text-gray-400">Full-stack data visualization platform, Best for analytics.</p>
+		<a href="http://Nexus.com" class="shrink-0 bg-blue-500 hover:bg-blue-400 text-white px-7 py-3 rounded-xl font-semibold transition flex justify-center">
+                   Take a Look
+                </a>
                 </div>
             </div>
         </div>
@@ -140,7 +215,6 @@
         <div>
             <h4 class="text-2xl font-semibold mb-6 border-l-4 border-purple-500 pl-4">Graphic Design</h4>
             <div class="flex gap-6 overflow-x-auto pb-6 scrollbar-hide snap-x snap-mandatory">
-                
                 <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
                     <div class="overflow-hidden rounded-2xl mb-4">
                         <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b1e32e215702323.Y3JvcCwxNTM0LDEyMDAsMzQsMA.jpg" alt="Branding" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
@@ -148,7 +222,6 @@
                     <h4 class="text-xl font-bold">Brand Identity</h4>
                     <p class="text-gray-400">Visual identity for a tech startup.</p>
                 </div>
-
                 <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
                     <div class="overflow-hidden rounded-2xl mb-4">
                         <img src="img/Street Life.jpg" alt="Packaging" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
@@ -156,7 +229,6 @@
                     <h4 class="text-xl font-bold">Music Art Cover</h4>
                     <p class="text-gray-400">Design suitable for music streaming platforms.</p>
                 </div>
-
                 <div class="min-w-[300px] md:min-w-[400px] snap-start group cursor-pointer bg-slate-100/10 p-4 rounded-3xl transition duration-300">
                     <div class="overflow-hidden rounded-2xl mb-4">
                         <img src="img/Icetech121.jpg" alt="Social Media" class="w-full h-64 object-cover group-hover:scale-105 transition duration-500">
@@ -168,100 +240,72 @@
         </div>
     </section>
 
-    <section id="about" class="py-20 bg-slate-100/10">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h3 class="text-3xl font-bold mb-24">About</h3>
-            <div class="glass p-10 rounded-3xl relative">
-                <div class="flex justify-center -mt-20 mb-6">
-                    <div class="relative">
-                        <div class="absolute -inset-1 bg-sky-400/20 rounded-full blur"></div>
-                        <img src="img/122.jpg" alt="Ibo Mhen Richard" class="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white object-cover shadow-2xl bg-slate-800">
-                    </div>
-                </div>
-                <h4 class="text-2xl font-bold mb-4 gradient-text">ICETECH VENTURES</h4> 
-                <p class="text-gray-300 text-lg leading-relaxed text-left md:text-center">
-                    My name is <b>Ibo Mhen Richard,</b> I am the founder of <b>Icetech Ventures</b>, a premier digital solutions agency dedicated to empowering businesses through cutting-edge technology and creative excellence. We specialize in building secure, high-performance digital infrastructure tailored to the evolving needs of the modern market.
-                    <br><br>
-                    We combine technical precision with a client first approach, ensuring that every project from complex software architecture to visual branding is delivered with speed and affordability. Our team is committed to bridging the gap between ambitious business goals and functional technical reality.
-                </p>
-            </div>
-        </div>
-    </section>
+    <!-- ===== PRICING ===== -->
+    <section id="pricing" class="py-20 bg-slate-100/10">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-3xl font-bold mb-4 text-center">Pricing Plans</h3>
+            <p class="text-center text-gray-400 mb-16 max-w-xl mx-auto">
+                Whether you're a startup or an established brand, we have a package that fits your needs and budget.
+            </p>
 
-    <section id="contact" class="py-20 px-6">
-        <div class="glass max-w-4xl mx-auto p-10 rounded-3xl text-center">
-            <h3 class="text-4xl font-bold mb-4">Ready to build?</h3>
-            <p class="text-gray-300 mb-8">Let's discuss how Icetech Ventures can help your project succeed.</p>
+            <div class="grid md:grid-cols-3 gap-8 items-start">
 
-            <div class="grid md:grid-cols-2 gap-12 items-center mb-10">
-                <div class="space-y-6 text-left">
+                <!-- Starter Plan -->
+                <div class="glass rounded-2xl p-8 flex flex-col gap-6">
                     <div>
-                        <p class="text-sm text-gray-400 uppercase mb-2">Email Us</p>
-                        <a href="mailto:mhenrichard@gmail.com" class="text-xl text-sky-400 hover:text-white transition">mhenrichard@gmail.com</a>
+                        <p class="text-3xl font-extrabold">₦149,999</p>
+                        <h4 class="text-xl font-bold mt-1">Starter Plan</h4>
+                        <p class="text-gray-400 text-sm mt-2">Perfect for startups and small businesses getting started online.</p>
                     </div>
+                    <hr class="border-white/10">
+                    <ul class="space-y-3">
+                        <li class="feature-item included">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            1–5 Page Website / Basic App
+                        </li>
+                        <li class="feature-item included">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            Mobile Responsive Design
+                        </li>
+                     	 <li class="feature-item included">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            Basic SEO Optimization
+                        </li>
+                         <li class="feature-item included">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            Up to 2 Weeks Free Maintenance
+                        </li>
+                        <li class="feature-item included">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            Free .com.ng domain/Hosting (1 year)
+                        </li>
+                        <li class="feature-item included">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            1 Professional Email Account
+                        </li>
+                        <li class="feature-item included">
+                            <svg class="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            Basic Contact Form & Google Maps embed
+                        </li>
+                    </ul>
+                    <a href="https://wa.me/message/76KNE73P5OETM1" class="mt-auto block text-center border border-white/20 hover:bg-white hover:text-black transition py-3 rounded-xl font-semibold">
+                        Get Started
+                    </a>
+                </div>
+
+                <!-- Economic Plan (Featured) -->
+                <div class="plan-featured rounded-2xl p-8 flex flex-col gap-6 relative" style="background: rgba(30,41,59,0.9);">
+                    <span class="absolute top-4 right-4 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Recommended</span>
                     <div>
-                        <p class="text-sm text-gray-400 uppercase mb-2">WhatsApp Us</p>
-                        <a href="https://wa.me/message/76KNE73P5OETM1" target="_blank" class="inline-flex items-center bg-green-700 hover:bg-green-600 text-white px-6 py-3 rounded-full font-bold transition">
-                            <span>WhatsApp Now</span>
-                        </a>
+                        <p class="text-3xl font-extrabold text-blue-400">₦349,999</p>
+                        <h4 class="text-xl font-bold mt-1 text-blue-400">Economic Plan</h4>
+                        <p class="text-gray-400 text-sm mt-2">Ideal for growing businesses needing more power and features.</p>
                     </div>
-                </div>
-                <div class="flex flex-col items-center border-l border-white/10 md:pl-12">
-                    <p class="text-sm text-gray-400 uppercase mb-4">Scan to Connect</p>
-                    <div class="bg-white p-2 rounded-xl inline-block shadow-xl">
-                        <img src="img/wa.jpg" alt="WhatsApp QR Code" class="w-32 h-32">
-                    </div>
-                </div>
-            </div>
-
-            <hr class="border-white/10 mb-8">
-
-            <div class="flex justify-center space-x-8">
-                <a href="https://www.facebook.com/share/18E9bvAS2K" class="text-gray-200 hover:text-sky-400 transition">FACEBOOK</a>
-                <a href="https://x.com/mhenrichard" class="text-gray-200 hover:text-sky-400 transition">X (Twitter)</a>
-                <a href="#" class="text-gray-200 hover:text-sky-400 transition">INSTAGRAM</a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-10 text-center text-gray-400 border-t border-white/10">
-        <p>&copy; 2026 Icetech Ventures. All rights reserved.</p>
-    </footer>
-
-    <button id="backToTopBtn" onclick="scrollToTop()" class="fixed hidden z-50 bottom-5 right-5 md:bottom-10 md:right-10 bg-sky-500 hover:bg-sky-400 text-white w-10 h-10 md:w-14 md:h-14 rounded-full shadow-2xl flex items-center justify-center transition-all">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
-    </button>
-
-    <script>
-        // 1. Preloader logic
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => { preloader.style.display = 'none'; }, 500);
-            }, 1000); 
-        });
-
-        // 2. Mobile Menu toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const closeBtn = document.getElementById('close-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        const toggleMenu = () => mobileMenu.classList.toggle('-translate-x-full');
-        
-        menuBtn.onclick = toggleMenu;
-        closeBtn.onclick = toggleMenu;
-        mobileLinks.forEach(l => l.onclick = toggleMenu);
-
-        // 3. Back to Top / Scroll logic
-        const btt = document.getElementById("backToTopBtn");
-        window.onscroll = function() {
-            if (window.scrollY > 400) { btt.classList.replace("hidden", "flex"); } 
-            else { btt.classList.replace("flex", "hidden"); }
-        };
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-    </script>
-</body>
-</html>
-
-
+                    <hr class="border-blue-500/30">
+                    <ul class="space-y-3">
+                        <li class="feature-item included">
+                            <svg class="w-5 h-5 text-blue-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            5–10 Page Website / Advanced App
+                        </li>
+                        <li class="feature-item included">
+                            <svg class="w-5 h-5 text-blue-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenod
